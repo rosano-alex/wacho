@@ -2,7 +2,7 @@
 
 **HOG** is a minimal, high‑performance fine‑grained reactive runtime built around signals, computed values, and deterministic scheduling. It is designed as a framework‑agnostic reactive engine that can power UI frameworks, state managers, and reactive data pipelines.
 
-hog combines ideas from Solid signals, MobX, Angular Signals, and React scheduler priorities. hog uses a small deterministic runtime with priority lanes.
+Zo combines ideas from Solid signals, MobX, Angular Signals, and React scheduler priorities. Zo uses a small deterministic runtime with priority lanes.
 
 ### High Level Principals
 
@@ -12,7 +12,7 @@ hog combines ideas from Solid signals, MobX, Angular Signals, and React schedule
 - **Composability** - Signals, computed values, and effects can be combined freely.
 kdf
 Most signal systems focus purely on **dependency tracking**.
-hog achieves competitive performance because it uses:
+Zo achieves competitive performance because it uses:
 
 • Array based observer lists  
 • Lazy computed evaluation  
@@ -44,9 +44,9 @@ hog achieves competitive performance because it uses:
 # Installation
 
 ```bash
-npm install hog
+npm install zo
 # or
-yarn add hog
+yarn add zo
 ```
 
 
@@ -56,7 +56,7 @@ yarn add hog
 
 ### Basic Idea
 ```ts
-import { signal, computed, effect } from "hog";
+import { signal, computed, effect } from "zo";
 const count = pulse(0);
 const doubled = computed(() => count.get() * 2);
 
@@ -110,14 +110,14 @@ effect(() => {
 
 # Architecture Overview
 
-hog builds a **reactive dependency graph**. Only the necessary parts of the graph update.
+Zo builds a **reactive dependency graph**. Only the necessary parts of the graph update.
 
 <p style="text-align: Left;"><img src="img/flow.png" width="430"></p>
 
 <br>
 
 # Reactive Nodes (Internal Architecture)
-hog's runtime is composed of a small set of primitives.
+Zo's runtime is composed of a small set of primitives.
 
 Three node types form the dependency graph:
 
@@ -159,7 +159,7 @@ This forms the reactive graph dynamically.
 
 ## Scheduler
 
-hog uses a **deterministic scheduler with priority lanes**.
+Zo uses a **deterministic scheduler with priority lanes**.
 
 ```
 SYNC
@@ -234,7 +234,7 @@ Each effect independently subscribes to dependencies.
 
 ## Reactive Data Pipeline
 
-hog can also power data flows.
+Zo can also power data flows.
 
 ```ts
 const raw = pulse(10);
@@ -251,7 +251,7 @@ effect(() => {
 
 # Project Status
 
-hog is currently **early stage**.
+Zo is currently **early stage**.
 
 The architecture is stable but internal optimizations will continue to evolve.
 

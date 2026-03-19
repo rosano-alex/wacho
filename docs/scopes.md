@@ -1,13 +1,13 @@
 # Scopes & Algebraic Effects
 
-Scopes provide two key capabilities in hog: **ownership** (automatic cleanup of reactive nodes) and **algebraic effects** (a composable error-handling and control-flow mechanism inspired by languages like Koka and OCaml 5).
+Scopes provide two key capabilities in Zo: **ownership** (automatic cleanup of reactive nodes) and **algebraic effects** (a composable error-handling and control-flow mechanism inspired by languages like Koka and OCaml 5).
 
 ## Ownership
 
 A `Scope` owns the reactive nodes created within it. When the scope is disposed, all owned nodes are torn down automaticaly — child scopes first, then owned nodes, then cleanup callbacks.
 
 ```ts
-import { Scope, PulseNode, ComputedNode, EffectNode } from "hog";
+import { Scope, PulseNode, ComputedNode, EffectNode } from "zo";
 
 const scope = new Scope();
 
@@ -45,7 +45,7 @@ root.dispose();
 The `createScope()` convenience function creates a new scope that is automaticaly a child of the currently active scope (if any):
 
 ```ts
-import { createScope } from "hog";
+import { createScope } from "zo";
 
 const root = new Scope();
 root.run(() => {
@@ -72,7 +72,7 @@ scope.run(() => {
 });
 
 // or use the module-level convenience:
-import { onCleanup } from "hog";
+import { onCleanup } from "zo";
 
 scope.run(() => {
   const ws = new WebSocket("wss://example.com");
@@ -92,7 +92,7 @@ Algebraic effects let a computation "perform" an operation without knowing how i
 ### Defining Effects
 
 ```ts
-import { defineEffect } from "hog";
+import { defineEffect } from "zo";
 
 // Define a custom effect with typed payload and resume value
 const LOG = defineEffect<string, void>("log");
@@ -120,7 +120,7 @@ The handler recieves two arguments: the payload and a `resume` callback. Calling
 ### Performing Effects
 
 ```ts
-import { perform } from "hog";
+import { perform } from "zo";
 
 scope.run(() => {
   perform(LOG, "starting computation");
@@ -132,14 +132,14 @@ The runtime walks up the scope tree to find the nearest handler for the given ef
 
 ### Built-in Effects
 
-hog provides three built-in effect keys:
+Zo provides three built-in effect keys:
 
 #### `ERROR`
 
 Fired when an effect throws. Install a handler to catch errors without crashing the reactive graph:
 
 ```ts
-import { ERROR } from "hog";
+import { ERROR } from "zo";
 
 const root = new Scope();
 
@@ -162,7 +162,7 @@ root.run(() => {
 Fired when a scope is about to be disposed. Handlers can perform final cleanup or logging:
 
 ```ts
-import { DISPOSE } from "hog";
+import { DISPOSE } from "zo";
 
 scope.handle(DISPOSE, (disposingScope, resume) => {
   console.log("Scope is being disposed, flushing pending writes...");
@@ -176,7 +176,7 @@ scope.handle(DISPOSE, (disposingScope, resume) => {
 Wraps a batch of pulse writes into an atomic unit:
 
 ```ts
-import { TRANSACTION } from "hog";
+import { TRANSACTION } from "zo";
 
 scope.handle(TRANSACTION, (fn, resume) => {
   batch(fn);
