@@ -6,10 +6,10 @@
     ],
     "rootDir": ".",
     "paths": {
-      "@wacho": [
+      "@kilombo": [
         "./src/index"
       ],
-      "@wacho/react": [
+      "@kilombo/react": [
         "./src/react/index"
       ]
     },
